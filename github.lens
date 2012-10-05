@@ -2,7 +2,7 @@
 DBusName=unity.singlet.lens.github
 DBusPath=/unity/singlet/lens/github
 Name=Github
-Icon=/usr/share/unity/lenses/github/unity-lens-github.svg
+Icon=/usr/share/unity/lenses/github/github.png
 Description=Github Lens
 SearchHint=Search Github
 #Shortcut=c
