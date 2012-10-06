@@ -1,0 +1,10 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: unity-lens-github
+Upstream-Contact: Chris Wayne <cwayne@ubuntu.com>
+Source: https://launchpad.net/onehundredscopes
+
+Files: *
+Copyright: (C) 2012 Chris Wayne <cwayne@ubuntu.com>
+License: GPL-3
+ The full text of the GPL is distributed in
+ /usr/share/common-licenses/GPL-3 on Debian systems.

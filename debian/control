@@ -1,0 +1,18 @@
+Source: unity-lens-github
+Section: python
+Priority: extra
+Build-Depends: debhelper (>= 8),
+ python (>= 2.6.6-3~),
+ python-distutils-extra (>= 2.10)
+Maintainer: Chris Wayne <cwayne@ubuntu.com>
+Standards-Version: 3.9.3
+X-Python-Version: >= 2.6
+
+Package: unity-lens-github
+Architecture: all
+Depends: ${misc:Depends},
+ ${python:Depends},
+ python-unity-singlet,
+ python-simplejson
+Description: Lens for searching GitHub
+ Search GitHub for repos and users, straight from the Dash!
