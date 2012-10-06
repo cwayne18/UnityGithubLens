@@ -1,4 +1,4 @@
 project = unity-lens-github
 version = 12.04
 template = unity-lens
-version_ubuntu-application = 12.04
+version_ubuntu-application = 12.08.1
