@@ -46,7 +46,7 @@ class GithubLens(SingleScopeLens):
                 repos = simplejson.loads(urllib2.urlopen(repo_url).read())['repositories']
             elif search_type == 'user':
                 repos = simplejson.loads(urllib2.urlopen(repo_url).read())['users']
-            print repos
+         #   print repos
             return repos
         except (IOError, KeyError, urllib2.URLError, urllib2.HTTPError, simplejson.JSONDecodeError):
             print "Error, unable to search github"
@@ -57,7 +57,7 @@ class GithubLens(SingleScopeLens):
         try:
             search_url = 'https://api.github.com/users/%s/repos' % search
             user_repos = simplejson.loads(urllib2.urlopen(search_url).read())
-            print user_repos
+           # print user_repos
             return user_repos
         except (IOError, KeyError, urllib2.URLError, urllib2.HTTPError, simplejson.JSONDecodeError):
             print "Error, unable to search github"
@@ -71,12 +71,16 @@ class GithubLens(SingleScopeLens):
                         icon = user_repo['owner']['avatar_url']
                     else:
                         icon = self.github_icon
+                    if user_repo['description']:
+                        desc = user_repo['description']
+                    else:
+                        desc = ""
                     results.append(user_repo['html_url'],
                                    icon,
                                    self.repo_category,
                                    "text/html",
                                    '%s/%s' % (user_repo['owner']['login'], user_repo['name']),
-                                   user_repo['description'],
+                                   desc,
                                    user_repo['html_url'])
             else:
                 for repo in self.search_github(search, 'repos'):
