@@ -22,28 +22,69 @@ class GithubLens(SingleScopeLens):
         
     github_icon = '/usr/share/unity/lenses/github/github-logo.png'
     repo_category = ListViewCategory("Repos", github_icon)
+    user_category = ListViewCategory("Users", github_icon)
     
     
-    def search_repos(self, search):
+    def search_github(self, search, search_type):
         try:
-            repo_url = 'https://api.github.com/legacy/repos/search/%s' % search
-            repos = simplejson.loads(urllib2.urlopen(repo_url).read())['repositories']
+            repo_url = 'https://api.github.com/legacy/%s/search/%s' % (search_type, search)
+            if search_type == 'repos':
+                repos = simplejson.loads(urllib2.urlopen(repo_url).read())['repositories']
+            elif search_type == 'user':
+                repos = simplejson.loads(urllib2.urlopen(repo_url).read())['users']
+            print repos
             return repos
+        except (IOError, KeyError, urllib2.URLError, urllib2.HTTPError, simplejson.JSONDecodeError):
+            print "Error, unable to search github"
+            return []
+            
+    
+    def search_user_repo(self, search):
+        try:
+            search_url = 'https://api.github.com/users/%s/repos' % search
+            user_repos = simplejson.loads(urllib2.urlopen(search_url).read())
+            print user_repos
+            return user_repos
         except (IOError, KeyError, urllib2.URLError, urllib2.HTTPError, simplejson.JSONDecodeError):
             print "Error, unable to search github"
             return []
 
     def search(self, search, results):
-        # TODO: Add your search results
-        for repo in self.search_repos(search):
-            desc = ''
-            if repo['description']:
-                desc = repo['description']
-            results.append('http://github.com/%s/%s' % (repo['owner'], repo['name']),
-                            self.github_icon,
-                            self.repo_category,
-                            "text/html",
-                            '%s/%s' % (repo['owner'], repo['name']),
-                            desc,
-                            'http://github.com/%s/%s' % (repo['owner'], repo['name']))
+        if len(search) > 2:
+            if search[0] == "@":
+                for user_repo in self.search_user_repo(search.strip('@')):
+                    if user_repo['owner']['avatar_url']:
+                        icon = user_repo['owner']['avatar_url']
+                    else:
+                        icon = self.github_icon
+                    results.append(user_repo['html_url'],
+                                   icon,
+                                   self.repo_category,
+                                   "text/html",
+                                   '%s/%s' % (user_repo['owner']['login'], user_repo['name']),
+                                   user_repo['description'],
+                                   user_repo['html_url'])
+            else:
+                for repo in self.search_github(search, 'repos'):
+                    desc = ''
+                    if repo['description']:
+                        desc = repo['description']
+                    results.append('http://github.com/%s/%s' % (repo['owner'], repo['name']),
+                                    self.github_icon,
+                                    self.repo_category,
+                                    "text/html",
+                                    '%s/%s' % (repo['owner'], repo['name']),
+                                    desc,
+                                    'http://github.com/%s/%s' % (repo['owner'], repo['name']))
+                for user in self.search_github(search, 'user'):
+                    name = ''
+                    if user['name']:
+                        name = user['name']
+                    results.append('http://github.com/%s' % user['username'],
+                                    self.github_icon,
+                                    self.user_category,
+                                    "text/html",
+                                    user['username'],
+                                    name,
+                                    'http://github.com/%s' % user['username'])
         pass
