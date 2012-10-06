@@ -33,9 +33,9 @@ __version__ = 'VERSION'
 
 import os
 
-import gettext
-from gettext import gettext as _
-gettext.textdomain('unity-lens-github')
+import locale
+from locale import gettext as _
+locale.textdomain('unity-lens-github')
 
 class project_path_not_found(Exception):
     """Raised when we can't find the project directory."""

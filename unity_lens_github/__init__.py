@@ -3,9 +3,9 @@ import optparse
 import urllib2
 import simplejson
 
-import gettext
-from gettext import gettext as _
-gettext.textdomain('unity-lens-github')
+import locale
+from locale import gettext as _
+locale.textdomain('unity-lens-github')
 
 from singlet.lens import SingleScopeLens, IconViewCategory, ListViewCategory
 
