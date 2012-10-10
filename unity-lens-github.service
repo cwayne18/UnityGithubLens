@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=unity.singlet.lens.github
-Exec=/usr/bin/unity-lens-github

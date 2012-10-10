@@ -76,11 +76,11 @@ DistUtilsExtra.auto.setup(
     long_description='Search GitHub for repos and users, straight from the Dash!',
     url='https://launchpad.net/onehundredscopes',
     data_files=[
-        ('share/unity/lenses/github', ['github.lens']),
-        ('share/dbus-1/services', ['unity-lens-github.service']),
-        ('share/unity/lenses/github', ['github.png']),
-        ('share/unity/lenses/github', ['github-logo.png']),
-        ('bin', ['bin/unity-lens-github']),
+        ('share/unity/lenses/extras-unity-lens-github', ['extras-unity-lens-github.lens']),
+        ('share/dbus-1/services', ['extras-unity-lens-github.service']),
+        ('/opt/extras.ubuntu.com/unity-lens-github', ['github.png']),
+        ('/opt/extras.ubuntu.com/unity-lens-github', ['github-logo.png']),
+        ('/opt/extras.ubuntu.com/unity-lens-github', ['bin/unity-lens-github']),
     ],
     cmdclass={"build":  build_extra.build_extra, 'install': InstallAndUpdateDataDirectory}
     )

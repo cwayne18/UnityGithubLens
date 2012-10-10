@@ -31,10 +31,10 @@ class GithubLens(SingleScopeLens):
         name = 'github'
         description = 'Github Lens'
         search_hint = 'Search Github'
-        icon = 'github.png'
+        icon = '/opt/extras.ubuntu.com/unity-lens-github/github.png'
         search_on_blank = False
         
-    github_icon = '/usr/share/unity/lenses/github/github-logo.png'
+    github_icon = '/opt/extras.ubuntu.com/unity-lens-github/github-logo.png'
     repo_category = ListViewCategory("Repos", github_icon)
     user_category = ListViewCategory("Users", github_icon)
     

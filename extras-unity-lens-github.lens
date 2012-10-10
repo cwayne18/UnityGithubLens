@@ -2,10 +2,10 @@
 DBusName=unity.singlet.lens.github
 DBusPath=/unity/singlet/lens/github
 Name=Github
-Icon=/usr/share/unity/lenses/github/github.png
+Icon=/opt/extras.ubuntu.com/unity-lens-github/github.png
 Description=Github Lens
 SearchHint=Search Github
-#Shortcut=c
+Shortcut=g
 
 [Desktop Entry]
 X-Ubuntu-Gettext-Domain=unity-lens-github

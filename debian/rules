@@ -1,9 +1,15 @@
 #!/usr/bin/make -f
-%:
-ifneq ($(shell dh -l | grep -xF translations),)
-	dh $@ --with python2,translations
-else
-	dh $@ --with python2
-endif
 
+
+PKGDIR=opt/extras.ubuntu.com/unity-lens-github
+
+%:
+	dh $@ --with python2
+
+override_dh_auto_install:
+	dh_auto_install -- --install-lib=/$(PKGDIR)/ --install-scripts=/$(PKGDIR)/
+
+override_dh_python2:
+	# Disabled as it installs files outside /opt
+	#dh_python2 /$(PKGDIR)/
 

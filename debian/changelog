@@ -1,3 +1,9 @@
+unity-lens-github (0.2) precise; urgency=low
+
+  * Fixed for ARB
+
+ -- Chris Wayne <chris.wayne@canonical.com>  Wed, 10 Oct 2012 13:45:17 -0400
+
 unity-lens-github (0.1) precise; urgency=low
 
   * Initial release.
