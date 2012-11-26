@@ -16,6 +16,9 @@ import logging
 import optparse
 import urllib2
 import simplejson
+import os
+import ConfigParser
+import subprocess
 
 import locale
 from locale import gettext as _
@@ -24,6 +27,7 @@ locale.textdomain('unity-lens-github')
 from singlet.lens import SingleScopeLens, IconViewCategory, ListViewCategory
 
 from unity_lens_github import unity_lens_githubconfig
+from gi.repository import Unity
 
 class GithubLens(SingleScopeLens):
 
@@ -106,3 +110,34 @@ class GithubLens(SingleScopeLens):
                                     name,
                                     'http://github.com/%s' % user['username'])
         pass
+        
+    def preview(self, result_item, result_model):
+        preview = Unity.GenericPreview.new(result_item['title'], result_item['description'], None)
+        preview.props.image_source_uri = result_item['image']
+        print result_model
+        print 'lol'
+        print result_item
+        clone_repo = Unity.PreviewAction.new("clone_repo", "Clone Repo", None)
+        clone_repo.connect('activated', self.git_clone)
+        preview.add_action(clone_repo)
+        return preview
+        
+        
+    def git_clone(self, preview, uri):
+        config = ConfigParser.ConfigParser()
+        homedir = os.environ.get("HOME")
+        project_dir = homedir + "/.unity-lens-github.cfg"
+        print project_dir
+        config.read(project_dir)
+        response = Unity.ActivationResponse.new(Unity.HandledType.HIDE_DASH, uri)
+        print "CLONE"
+        print uri
+        git_uri = re.sub('http', 'git', uri) + '.git'
+        print git_uri
+        projects_dir =  config.get('ProjectsDir', 'projects_dir')
+        subprocess.Popen(['git', 'clone', git_uri], cwd=projects_dir)
+        return response
+
+    def closeit(self):
+        dir = ask_text('Clone to location:', initial=homedir)
+        print dir
